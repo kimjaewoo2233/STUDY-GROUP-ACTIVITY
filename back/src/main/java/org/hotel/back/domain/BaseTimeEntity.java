@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 
-public class BaseTimeEntity {
+public class BaseTimeEntity { //생성일 수정 상속하면 자동으로 들어가는 클래스
     @CreatedDate
     LocalDateTime createdDate;
     @LastModifiedDate

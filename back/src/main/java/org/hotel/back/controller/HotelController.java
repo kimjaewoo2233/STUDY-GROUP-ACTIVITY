@@ -25,7 +25,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class HotelController {
     private final HotelService hotelService;
-    @GetMapping("/hotel/save")//localhost:8080/save
+    @GetMapping("/hotel/save") 
     public String hotelWriteForm(){
 
         return "hotelSave";

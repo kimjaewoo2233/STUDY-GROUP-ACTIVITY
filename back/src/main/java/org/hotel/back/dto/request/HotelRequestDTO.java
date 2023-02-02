@@ -17,6 +17,7 @@ public class HotelRequestDTO {
     private String latitude;
     private String longitude;
     private Review review;
+    String address;
 
     public static Hotel toEntity(HotelRequestDTO hotelRequestDTO){
         return Hotel.builder()

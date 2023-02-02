@@ -27,6 +27,7 @@ public class HotelAPIService {
     String key;
 
     public HotelResponseData getData(HotelRequestData request){
+         request.setKey(key);
          var uri = UriComponentsBuilder
                 .fromUriString("https://openapi.gg.go.kr/GSST")
                 .queryParams(request.toMultiValueMap())

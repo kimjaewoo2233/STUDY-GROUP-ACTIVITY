@@ -2,12 +2,15 @@ package org.hotel.back.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hotel.back.data.response.KaKaoResponseData;
 import org.hotel.back.domain.Hotel;
 
 import org.hotel.back.domain.Review;
 import org.hotel.back.dto.request.HotelRequestDTO;
 import org.hotel.back.dto.request.ReviewRequestDTO;
 import org.hotel.back.service.HotelService;
+import org.hotel.back.service.api.KaKaoAPIService;
+import org.json.simple.parser.ParseException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -19,12 +22,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor
 public class HotelController {
     private final HotelService hotelService;
+    private final KaKaoAPIService kaKaoAPIService;
     @GetMapping("/hotel/save") 
     public String hotelWriteForm(){
 
@@ -32,7 +37,10 @@ public class HotelController {
     }
 //==========호텔 저장==============
     @PostMapping("/hotel/save")
-    public String hotelSave(HotelRequestDTO hotelRequestDTO){
+    public String hotelSave(HotelRequestDTO hotelRequestDTO) throws ParseException {
+        KaKaoResponseData kaKaoResponseData= kaKaoAPIService.getLocationInfo(hotelRequestDTO.getAddress()).orElse(null);
+        hotelRequestDTO.setLatitude(kaKaoResponseData.getLatitude());
+        hotelRequestDTO.setLongitude(kaKaoResponseData.getLongitude());
         hotelService.write(hotelRequestDTO);
         System.out.println(hotelRequestDTO);
         return "redirect:/hotel";

@@ -13,14 +13,12 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class HotelImage {
+public class HotelImage extends BaseTimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int hotelImageId;
-    int roomId;
+    Long Id;
+    Long roomId;
     int uuid;
-    String createdAt;
-    String modifiedAt;
     String image_name;
 
     public static void main(String[] args) {

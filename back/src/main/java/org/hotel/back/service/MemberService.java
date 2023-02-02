@@ -11,6 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class MemberService {
@@ -49,4 +51,12 @@ public class MemberService {
         return memberRepository.existsByEmail(email);
     }
 
+    //member 찾아오기 기능
+    public Member findMember(String email){
+        var m = memberRepository.getMember(email);
+        if(m != null){
+            return m.get();
+        }
+        return null;
+    }
 }

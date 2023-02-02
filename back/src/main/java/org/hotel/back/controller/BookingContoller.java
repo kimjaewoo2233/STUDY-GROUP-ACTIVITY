@@ -3,6 +3,7 @@ package org.hotel.back.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hotel.back.data.request.BookingRequestDTO;
+import org.hotel.back.data.request.RegisterData;
 import org.hotel.back.data.response.BookingResponseDTO;
 import org.hotel.back.domain.Gender;
 import org.hotel.back.domain.Hotel;
@@ -44,21 +45,22 @@ public class BookingContoller {
     public void bookingSave(@RequestParam Long id){
         //호텔 객체에 id값으로 조회된 호텔 불러오기
         Hotel hotel = hotelService.hotelDetail(id);
-        //멤버 객체 불러와야하지만 임시로 멤버 객체 생성.
-        Member member = Member.builder()
-                .email("test1")
-                .password("test1")
-                .tellNumber("011-0202-0202")
-                .gender(Gender.WOMAN)
-                .nickName("mic")
+        //멤버 객체 임시 생성.resisterData 생성.
+        RegisterData registerData = RegisterData.builder()
+                .email("test@naver.com")
+                .password("abcde")
+                .tellNumber("010-1234-5678")
+                .gender("MAN")
+                .nickName("test")
                 .build();
 
-        //request 객체 생성하여 전달.
+        memberService.registerSave(registerData); //boolean값임..
+        Member member = memberService.findMember(registerData.getEmail());//member 찾아오기
+
+                //request 객체 생성하여 전달.
         BookingRequestDTO bookingRequestDTO = BookingRequestDTO.builder()
                 .hotel(hotel)
                 .member(member)
-                .createdAt(LocalDateTime.now())
-                .modifiedAt(LocalDateTime.of(2000,01,01,01,01,01))
                 .checkIn(LocalDateTime.of(2000,01,01,01,01,01))
                 .check_out(LocalDateTime.of(2000,01,01,01,01,01))
                 .build();

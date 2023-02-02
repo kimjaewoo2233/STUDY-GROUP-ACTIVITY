@@ -15,21 +15,17 @@ import java.time.LocalDateTime;
 public class BookingResponseDTO {
     private Long bookingId;
     private Hotel hotel;
-    private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
     private Member member;
     private LocalDateTime checkIn;
     private LocalDateTime check_out;
 
     public Booking toEntity(BookingResponseDTO bookingResponseDTO){
         return Booking.builder()
-                .bookingId(bookingResponseDTO.bookingId)
-                .hotel(bookingResponseDTO.hotel)
-                .createdAt(bookingResponseDTO.createdAt)
-                .modifiedAt(bookingResponseDTO.modifiedAt)
-                .member(bookingResponseDTO.member)
-                .checkIn(bookingResponseDTO.checkIn)
-                .check_out(bookingResponseDTO.check_out)
+                .bookingId(bookingResponseDTO.getBookingId())
+                .hotel(bookingResponseDTO.getHotel())
+                .member(bookingResponseDTO.getMember())
+                .checkIn(bookingResponseDTO.getCheckIn())
+                .check_out(bookingResponseDTO.getCheck_out())
                 .build();
     }
 

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hotel.back.data.request.BookingRequestDTO;
 import org.hotel.back.data.response.BookingResponseDTO;
+import org.hotel.back.domain.BaseTimeEntity;
 import org.hotel.back.domain.Booking;
 import org.hotel.back.repository.BookingRepository;
 import org.hotel.back.service.BookingService;
@@ -41,8 +42,6 @@ public class BookingServiceImpl implements BookingService {
         return BookingResponseDTO.builder()
                 .bookingId(booking.getBookingId())
                 .hotel(booking.getHotel())
-                .createdAt(booking.getCreatedAt())
-                .modifiedAt(booking.getModifiedAt())
                 .member(booking.getMember())
                 .checkIn(booking.getCheckIn())
                 .check_out(booking.getCheck_out())
@@ -55,11 +54,9 @@ public class BookingServiceImpl implements BookingService {
     * 성공적으로 저장되면 false를 반환하고 콘솔에서 저장 내용을 확인할 수 있다.*/
     @Override
     public boolean save(BookingRequestDTO bookingRequestDTO) {
-        bookingRequestDTO.setCreatedAt(LocalDateTime.now());
         //null에러 방지.
         bookingRequestDTO.setCheckIn(LocalDateTime.of(2000,01,01,01,01,01));
         bookingRequestDTO.setCheck_out(LocalDateTime.of(2000,01,01,01,01,01));
-        bookingRequestDTO.setModifiedAt(LocalDateTime.of(2000,01,01,01,01,01));
 
         bookingRepository.save(BookingRequestDTO.toEntity(bookingRequestDTO));
         System.out.println(bookingRequestDTO); // 콘솔에서 확인용.

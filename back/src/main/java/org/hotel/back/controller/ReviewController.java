@@ -3,7 +3,6 @@ package org.hotel.back.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hotel.back.dto.request.ReviewRequestDTO;
-import org.hotel.back.service.HotelService;
 import org.hotel.back.service.ReviewService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

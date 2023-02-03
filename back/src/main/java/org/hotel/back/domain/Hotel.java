@@ -12,7 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Setter
 public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +24,7 @@ public class Hotel {
     @Builder.Default
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "hotel")
     private List<Review> reviews = new ArrayList<>();
-
+    
     public void modifyHotel(String hotelName, String cityName, String tellNumber, String latitude, String longitude){
         this.hotelName=hotelName;
         this.cityName=cityName;

@@ -7,7 +7,6 @@ import org.hotel.back.domain.Hotel;
 
 import org.hotel.back.domain.Review;
 import org.hotel.back.dto.request.HotelRequestDTO;
-import org.hotel.back.dto.request.ReviewRequestDTO;
 import org.hotel.back.service.HotelService;
 import org.hotel.back.service.api.KaKaoAPIService;
 import org.json.simple.parser.ParseException;
@@ -18,11 +17,9 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -38,9 +35,16 @@ public class HotelController {
 //==========호텔 저장==============
     @PostMapping("/hotel/save")
     public String hotelSave(HotelRequestDTO hotelRequestDTO) throws ParseException {
-        KaKaoResponseData kaKaoResponseData= kaKaoAPIService.getLocationInfo(hotelRequestDTO.getAddress()).orElse(null);
-        hotelRequestDTO.setLatitude(kaKaoResponseData.getLatitude());
-        hotelRequestDTO.setLongitude(kaKaoResponseData.getLongitude());
+        try{
+            if(kaKaoAPIService.getLocationInfo(hotelRequestDTO.getAddress()).isPresent()){
+                KaKaoResponseData kaKaoResponseData= kaKaoAPIService.getLocationInfo(hotelRequestDTO.getAddress()).orElse(null);
+                hotelRequestDTO.setLatitude(kaKaoResponseData.getLatitude());
+                hotelRequestDTO.setLongitude(kaKaoResponseData.getLongitude());
+            }
+        }catch (IndexOutOfBoundsException e){
+            return "redirect:/hotel/save";
+        }
+
         hotelService.write(hotelRequestDTO);
         System.out.println(hotelRequestDTO);
         return "redirect:/hotel";

@@ -2,10 +2,8 @@ package org.hotel.back.domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Builder
@@ -18,9 +16,15 @@ public class HotelImage extends BaseTimeEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long Id;
     Long roomId;
-    int uuid;
+    UUID uuid;
     String image_name;
 
-    public static void main(String[] args) {
+    @ManyToOne
+    @JoinColumn(name = "hotel_id")
+    Hotel hotel;
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
     }
+
 }

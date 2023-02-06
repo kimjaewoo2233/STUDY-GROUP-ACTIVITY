@@ -2,10 +2,7 @@ package org.hotel.back.domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 @Entity
 @Builder
@@ -13,14 +10,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class RoomImage {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int roomImageId;
-    int roomId;
-    int uuid;
-    LocalDateTime createdAt;
-    LocalDateTime modifiedAt;
-    int roomImageName;
+@Table(name = "room_image")
+public class RoomImage extends BaseTimeEntity{
 
+
+    @Id
+    private String name;
+
+    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "room_id")
+    private Room room;
+    //C:\lecture_homework\oneToy\proj\STUDY-GROUP-ACTIVITY\back\temp
 }

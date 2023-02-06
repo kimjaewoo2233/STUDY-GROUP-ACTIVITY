@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>예약 페이지</title>
+</head>
+
+<body>
+<form>
+    <input type="hidden" th:name="memberId" th:value="${member.id}"></input>
+    <h1 th:text="${hotel.id}"></h1>
+    <p th:text="${booking.createdAt}"></p>
+    <p th:text="${booking.modifiedAt}"></p>
+    <p th:text="${booking.member}"></p>
+    <p th:text="${booking.checkIn}"></p>
+    <p th:text="${booking.check_out}"></p>
+    <a th:href="@{/booking/modify}">입실</a>
+    <a th:href="@{/booking/delete}">예약취소</a>
+    <!--<button type="submit" onclick="location.href='/hotel'">뒤로</button>-->
+</form>
+
+</body>
+</html>

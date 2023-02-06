@@ -1,16 +1,8 @@
-package org.hotel.back.dto.request;
+package org.hotel.back.data.request;
 
 import lombok.*;
 import org.hotel.back.domain.Hotel;
 import org.hotel.back.domain.Review;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter

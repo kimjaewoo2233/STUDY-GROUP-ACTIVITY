@@ -1,8 +1,11 @@
-package org.hotel.back.dto.response;
+package org.hotel.back.data.response;
 
 import lombok.*;
 import org.hotel.back.domain.Hotel;
 import org.hotel.back.domain.Review;
+
+import java.util.List;
+
 @Builder
 @Setter
 @AllArgsConstructor
@@ -16,6 +19,8 @@ public class HotelResponseDTO {
     String latitude;
     String longitude;
     Review review;
+    List<String> fileNames;
+    String storedFileName;
 
     public HotelResponseDTO(Hotel hotel){
         this.id=hotel.getId();
@@ -24,5 +29,7 @@ public class HotelResponseDTO {
         this.tellNumber=hotel.getTellNumber();
         this.latitude=hotel.getLatitude();
         this.longitude=hotel.getLongitude();
+
     }
+
 }

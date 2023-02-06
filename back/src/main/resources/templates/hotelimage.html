@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>입력항목 예제1</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+</head>
+<body>
+
+<div class="container">
+  <form action="/hotel/save" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="hotelName">hotelName</label>
+      <input type="text" name="hotelName" id="hotelName" class="form-control" >
+    </div>
+
+    <div class="form-group">
+      <label for="cityName">cityName</label>
+      <input name="cityName" id=cityName class="form-control" type="text">
+    </div>
+    <div class="form-group">
+      <label for="tellNumber">tellNumber</label>
+      <input name="tellNumber" id="tellNumber" class="form-control" type="text">
+    </div>
+    <div class="form-group">
+      <label for="address">address</label>
+      <input name="address" id="address" class="form-control" type="text">
+    </div>
+    <table>
+      <div class="card">
+        <div class="card-header"><i class="fas fa-chess-rook"></i>&nbsp&nbsp 이미지 저장</div>
+        <div class="card-body">
+          <table class="table">
+            <tbody>
+            <tr style="line-height:32px;">
+              <td>이미지 첨부</td>
+              <td>
+                파일 <input type="file" name="hotelImage" class="form-control" multiple>
+              </td>
+            </tr>
+            <tr>
+              <td class="image">
+
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </table>
+
+
+    <button type="submit" class="btn btn-primary">작성</button>
+
+  </form>
+</div>
+
+
+</form>
+
+<div class="text-center mt-3">
+  <button type="button" class="btn btn-success">변경하기</button>
+  <button type="button" class="btn btn-info">다시쓰기</button>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+
+</body>

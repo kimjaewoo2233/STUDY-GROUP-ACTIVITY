@@ -1,11 +1,7 @@
 package org.hotel.back.service;
 
-import org.hotel.back.domain.Hotel;
-import org.hotel.back.dto.request.HotelRequestDTO;
-import org.hotel.back.dto.request.ReviewRequestDTO;
-import org.hotel.back.dto.response.ReviewResponseDTO;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.hotel.back.data.request.ReviewRequestDTO;
+import org.hotel.back.data.response.ReviewResponseDTO;
 
 import java.util.List;
 

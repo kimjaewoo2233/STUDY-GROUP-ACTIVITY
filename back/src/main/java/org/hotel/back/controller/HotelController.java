@@ -2,24 +2,31 @@ package org.hotel.back.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hotel.back.data.dto.UploadDTO;
 import org.hotel.back.data.response.KaKaoResponseData;
 import org.hotel.back.domain.Hotel;
 
+import org.hotel.back.domain.HotelImage;
 import org.hotel.back.domain.Review;
-import org.hotel.back.dto.request.HotelRequestDTO;
+import org.hotel.back.data.request.HotelRequestDTO;
 import org.hotel.back.service.HotelService;
 import org.hotel.back.service.api.KaKaoAPIService;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -27,26 +34,29 @@ import java.util.List;
 public class HotelController {
     private final HotelService hotelService;
     private final KaKaoAPIService kaKaoAPIService;
+    @Value("${upload.path}")
+    private String path;
     @GetMapping("/hotel/save") 
     public String hotelWriteForm(){
 
-        return "hotelSave";
+        return "hotelimage";
     }
 //==========호텔 저장==============
     @PostMapping("/hotel/save")
     public String hotelSave(HotelRequestDTO hotelRequestDTO) throws ParseException {
-        try{
-            if(kaKaoAPIService.getLocationInfo(hotelRequestDTO.getAddress()).isPresent()){
-                KaKaoResponseData kaKaoResponseData= kaKaoAPIService.getLocationInfo(hotelRequestDTO.getAddress()).orElse(null);
-                hotelRequestDTO.setLatitude(kaKaoResponseData.getLatitude());
-                hotelRequestDTO.setLongitude(kaKaoResponseData.getLongitude());
-            }
-        }catch (IndexOutOfBoundsException e){
-            return "redirect:/hotel/save";
+        KaKaoResponseData kaKaoResponseData= kaKaoAPIService.getLocationInfo(hotelRequestDTO.getAddress()).orElse(null);
+        hotelRequestDTO.setLatitude(kaKaoResponseData.getLatitude());
+        hotelRequestDTO.setLongitude(kaKaoResponseData.getLongitude());
+
+        try {
+
+            hotelService.write(hotelRequestDTO);
+            System.out.println(hotelRequestDTO);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
-        hotelService.write(hotelRequestDTO);
-        System.out.println(hotelRequestDTO);
+
         return "redirect:/hotel";
     }
 
@@ -66,13 +76,26 @@ public class HotelController {
         model.addAttribute("list",list);
         return "hotelMain";
     }
+
+    @GetMapping("/hotel/search")
+    public String hotelListSearch(Model model,String keyword){
+        //서비스에서 생성한 리스트를 list라는 이름으로 반환하겠다.
+        List<Hotel> list =hotelService.hotelListSearch(keyword);
+
+        model.addAttribute("list",list);
+        return "hotelsearch";
+    }
+
 //========호텔 자세히보기  ============
     @GetMapping("/hotel/detail")
     public String hotelDetail(Model model, Long id){
         Hotel hotel=hotelService.hotelDetail(id); //호텔 객체를 불러옴 ->service hotelDetail메서드
         List<Review> reviewlist =hotel.getReviews(); //호텔 객체에서 review 가져와서 넣음(hotelId의 리뷰)
+        List<HotelImage>hotelImages = hotel.getHotelImages();
         model.addAttribute("article",hotel);
         model.addAttribute("review",reviewlist);
+        model.addAttribute("image",hotelImages);
+        model.addAttribute("path",path);
         return "hotelDetail";
     }
 //===========호텔 지우기===============

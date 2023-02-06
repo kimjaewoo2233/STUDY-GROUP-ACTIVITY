@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>입력항목 예제1</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+</head>
+<body>
+
+<div class="container">
+  <form action="/room/save" method="post" >
+
+    <div class="col-sm-12 pt-3">
+      <div class="card">
+        <div class="card-header card-header-primary">
+          <h4 class="card-title"><i class="fas fa-chess-queen"></i>&nbsp&nbsp 객실 등록하기</h4>
+          <p class="card-catagory"></p>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <tbody>
+              <tr style="line-height:32px;">
+                <td>호텔이름</td>
+                <td>
+                  <input type="text" name="hotel" class="form-control" value="" readonly>
+                </td>
+                <td>방 번호</td>
+                <td>
+                  <input type="text" name="roomNumber" class="form-control" value="">
+                </td>
+              </tr>
+              <tr>
+                <td>방 등급</td>
+                <td>
+                  <input type="text" name="roomClass" class="form-control" maxlength="10" value="">
+                </td>
+                <td>방 가격</td>
+                <td>
+                  <input type="text" name="roomPrice" class="form-control" maxlength="10" value="">
+                </td>
+              </tr>
+              <tr>
+                <td>제한 인원</td>
+                <td>
+                  <input type="tel" name="roomLimit" class="form-control" value="">
+                </td>
+
+              </tr>
+
+              <tr>
+                <td>설명</td>
+                <td colspan="3">
+                  <input type="text" name="description" id="address1" class="form-control mb-3" value="">
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-3"></div>
+
+      <div class="card">
+        <div class="card-header"><i class="fas fa-chess-rook"></i>&nbsp&nbsp 이미지 저장</div>
+        <div class="card-body">
+          <table class="table">
+            <tbody>
+            <tr style="line-height:32px;">
+              <td>이미지 첨부</td>
+              <td>
+                 파일 <input type="file" name="files" class="form-control" multiple>
+                <input type="button" class="btn-upload-upload btn-info" id="btn-upload" style="margin-top: 10px">임시저장</input>
+              </td>
+            </tr>
+            <tr>
+              <td class="image">
+
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </form>
+
+  <div class="text-center mt-3">
+    <button type="button" class="btn btn-success">변경하기</button>
+    <button type="button" class="btn btn-info">다시쓰기</button>
+  </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+
+<script>  //여기서 요청 넣는 거에요 저 메소드에
+       async function upload(formData){
+         const response = await axios({
+               method : 'post', //POST요청
+               url : '/image', //요청경로
+               data : formData, //요청보낼 데이터
+               headers: {
+                 'Content-Type': 'multipart/form-data', //파일형식
+               }  //콘텐츠 형식은 헤더에 값을 지정해요
+         })
+
+         return response.data
+       }
+
+       $('#btn-upload').click(function (){
+         const formData = new FormData(); //이게 위에 함수에 넣은 데이터에요
+
+         const fileData = document.querySelector("input[name='files']") //이건 html태그에서 받은 파일을 가져오는 문장
+         const files = fileData.files; //위에 fileData 변수로 받고 그 데이터에서 받은 값은 여러개라서 한 개일수도 있어요
+
+         for (let i = 0; i < files.length; i++) {
+           formData.append("files", files[i]);  //데이터 추가
+         }
+
+         upload(formData)
+                 .then(result => {  //then은 저기 저 비동기 함수를 실행하고 결과를 받을 때사용해요
+                   console.log(result)  //여기서 result가 그 반환데이터
+
+                   for(const file of result){ //반환타입이 List<DTO>라서
+                     console.log(file.link) //거기서 데이터를 뽑는 거에요 dto.get떙떙
+                     const imgSrc = "/view?fileName="+file.link
+                     $('.image').append(`<img src='${imgSrc}' width="200" height="140" data-src='${file.link}'/>`)
+                   }              //여기 그래서 이 태그에 이미지가 출력돼요
+                 }).catch(e => {
+
+         })
+       })
+
+</script>
+<script>
+
+</script>
+</body>
+</html>

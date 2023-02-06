@@ -21,9 +21,18 @@
         <li class="list-group-item" th:text="${article.latitude}"></li>
         <li class="list-group-item" th:text="${article.longitude}"></li>
     </ul>
+    <table class="table table-striped">
+    <tr th:each = "image:${image}">
+        <img th:src="${path}+'/'+${image.name}">
+    </tr>
+    </tr>
+    </table>
+
+
 </div>
 <button type="button" class="btn btn-dark" th:onclick="|location.href='@{/hotel/delete(id=${article.id})}'|">글 삭제</button>
 <button type="button" class="btn btn-warning" th:onclick="|location.href='@{/hotel/update(id=${article.id})}'|">글 수정</button>
+<button type="button" class="btn btn-dark" th:onclick="|location.href='@{/booking/save(id=${article.id})}'|">예약하기</button>
 <p></p>
 <p></p>
 <table class="table table-striped">
@@ -58,4 +67,5 @@
     </tbody>
 </table>
 </body>
+
 </html>

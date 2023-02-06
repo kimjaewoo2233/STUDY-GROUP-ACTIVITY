@@ -1,12 +1,10 @@
-package org.hotel.back.dto.response;
+package org.hotel.back.data.response;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hotel.back.domain.Hotel;
 import org.hotel.back.domain.Review;
-import org.hotel.back.dto.request.ReviewRequestDTO;
+import org.hotel.back.data.request.ReviewRequestDTO;
 
-import java.time.LocalDateTime;
 @Getter
 @Setter
 public class ReviewResponseDTO {

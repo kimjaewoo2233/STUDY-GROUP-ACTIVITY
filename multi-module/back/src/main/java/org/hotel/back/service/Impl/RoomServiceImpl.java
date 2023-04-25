@@ -112,14 +112,12 @@ public class RoomServiceImpl implements RoomService {
 
 
        public void save(RoomDTO roomDTO){
-        List<String> tempDTO = new ArrayList<>();
 
-        roomDTO.getFileNames().forEach(s -> {
-            String temp =s3Config.upload(s);
-            tempDTO.add(temp);
-        });
+//        roomDTO.getFileNames().forEach(s -> {
+//            String temp =s3Config.upload(s);
+//            tempDTO.add(temp);
+//        });
 
-        roomDTO.setFileNames(tempDTO);
 
         roomDTO.getFileNames().forEach(s -> System.out.println("변경된 파일네임"+s));
 

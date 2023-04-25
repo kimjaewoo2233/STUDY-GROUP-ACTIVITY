@@ -106,7 +106,8 @@ public class RoomController {
     public String roomSavePOST(RoomDTO roomDTO){
             log.info("==> {}",roomDTO);
             roomService.save(roomDTO);
-             return "redirect:/room/list&id="+roomDTO.getHotelId();
+             return "redirect:/hotel/detail&id="+r
+        oomDTO.getHotelId();
     }
     @PreAuthorize("hasRole('OWNER')")
     @PostMapping("/room/modify")

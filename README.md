@@ -23,7 +23,8 @@
 ![image](https://user-images.githubusercontent.com/79129475/228429497-fc381b6a-bdce-49cf-99b3-31b24186a0b0.png)
 
 ## 🌟 동작 방식 
-![제목을 입력하세요 (1)](https://user-images.githubusercontent.com/95463650/233062001-7ca64589-9c58-4e84-97b0-c8d5269752df.jpg)
+![제목을 입력하세요 (2)](https://user-images.githubusercontent.com/95463650/234174340-58175af9-aa05-4933-8c59-64b42ffe88f2.jpg)
+
 
 
 ## 📘 API 명세서 

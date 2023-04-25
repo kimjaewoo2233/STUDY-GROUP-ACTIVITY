@@ -58,7 +58,7 @@
       for(const dto of listDTO){
 
         if(dto.roomImage != null){
-          temp = dto.roomImage[0];
+          temp = '/view?fileName='+dto.roomImage[0];
           console.log(temp)
         }
         const more = '/room/detail?id='+dto.id+'&hotel='+hotelId+'&hotelNa='+hotelNa

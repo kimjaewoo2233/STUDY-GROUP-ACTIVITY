@@ -27,7 +27,6 @@
 
 
 
-## 📘 API 명세서 
 
 ## 🧑🏻‍💻 배포기록 
 https://jaewoo2233.tistory.com/105
